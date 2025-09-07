@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Калькулятор срока КЗ</title>
+  <style>
+    input[type="number"] {
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 14px;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .section {
+      background: white;
+      padding: 16px;
+      margin: 16px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.1);
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #e8f4fd;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .note {
+      font-size: 14px;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    .category {
+      font-weight: bold;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚖️ Калькулятор срока наказания</h1>
+  <p class="note">Выберите статьи и модификаторы. Результат рассчитывается по внутренней логике: (самая тяжкая статья + до 50% от неё) * модификаторы + рецидивы.</p>
+
+  <div class="section">
+    <h2>📌 Статьи КЗ</h2>
+    <p class="note">Можно выбрать несколько. В одной категории — только самая тяжкая.</p>
+	
+	<div class="category">Категория Х00 (преступления против власти)</div>
+	<label><input type="checkbox" name="article" value="100"> 100 — Оскорбление должностного лица (10 мин)</label>
+	<label><input type="checkbox" name="article" value="200"> 200 — Сопротивление органам власти (15 мин)</label>
+    <label><input type="checkbox" name="article" value="300"> 300 — Нападение на должностное лицо (25 мин)</label>
+    <label><input type="checkbox" name="article" value="400"> 400 — Восстание (40 мин)</label>
+    <label><input type="checkbox" name="article" value="500"> 500 — Убийство должностного лица (Пожизненное)</label>
+
+    <div class="category">Категория Х01 (преступления против личности)</div>
+	<label><input type="checkbox" name="article" value="101"> 101 — Харассмент (10 мин)</label>
+    <label><input type="checkbox" name="article" value="201"> 201 — Нападение (15 мин)</label>
+    <label><input type="checkbox" name="article" value="301"> 301 — Нанесение увечий (25 мин)</label>
+    <label><input type="checkbox" name="article" value="401"> 401 — Убийство (40 мин)</label>
+	<label><input type="checkbox" name="article" value="501"> 501 — Уничтожение тела (Пожизненное)</label>
+
+    <div class="category">Категория Х02 (нарушение ограничений оборота опасных предметов)</div>
+    <label><input type="checkbox" name="article" value="202"> 202 — Оборот наркотиков (15 мин)</label>
+    <label><input type="checkbox" name="article" value="302"> 302 — Оборот контрабанды (25 мин)</label>
+    <label><input type="checkbox" name="article" value="402"> 402 — Эксплуатация опасных веществ (40 мин)</label>
+	<label><input type="checkbox" name="article" value="502"> 502 — Владение вражеским снаряжением (Пожизненное)</label>
+	
+	<div class="category">Категория Х03 (незаконная экипировка)</div>
+    <label><input type="checkbox" name="article" value="103"> 103 — Злоупотребление экипировкой (10 мин)</label>
+    <label><input type="checkbox" name="article" value="203"> 203 — Владение боевым приспособлением (15 мин)</label>
+    <label><input type="checkbox" name="article" value="303"> 303 — Владение боевым оружием (25 мин)</label>
+	<label><input type="checkbox" name="article" value="403"> 403 — Распространение оружия (40)</label>
+
+	<div class="category">Категория Х04 (нарушение общественного порядка)</div>
+    <label><input type="checkbox" name="article" value="104"> 104 — Хулиганство (10 мин)</label>
+    <label><input type="checkbox" name="article" value="204"> 204 — Порча имущества (15 мин)</label>
+    <label><input type="checkbox" name="article" value="304"> 304 — Мошенничество (25 мин)</label>
+	<label><input type="checkbox" name="article" value="504"> 504 — Теракт (Пожизненное)</label>
+
+    <div class="category">Категория Х05 (экономические преступления)</div>
+	<label><input type="checkbox" name="article" value="105"> 105 — Мелкая кража (10 мин)</label>
+    <label><input type="checkbox" name="article" value="205"> 205 — Грабёж (15 мин)</label>
+    <label><input type="checkbox" name="article" value="305"> 305 — Кража (25 мин)</label>
+    <label><input type="checkbox" name="article" value="405"> 405 — Разбой (40 мин)</label>
+	<label><input type="checkbox" name="article" value="505"> 505 — Особо крупное хищение (Пожизненное)</label>
+
+    <div class="category">Категория Х06 (нарушение уровней допуска)</div>
+	<label><input type="checkbox" name="article" value="106"> 106 — Проникновение (10 мин)</label>
+    <label><input type="checkbox" name="article" value="306"> 306 — Проникновение в стратегическую точку (25 мин)</label>
+	<label><input type="checkbox" name="article" value="506"> 506 — Проникновение в защищённую стратегическую точку (Пожизненное)</label>
+
+    <div class="category">Категория Х07 (преступления против трудового порядка)</div>
+    <label><input type="checkbox" name="article" value="207"> 207 — Халатность (15 мин)</label>
+	<label><input type="checkbox" name="article" value="307"> 307 — Саботаж (25 мин)</label>
+    <label><input type="checkbox" name="article" value="407"> 407 — Грубая халатность (40 мин)</label>
+	<label><input type="checkbox" name="article" value="507"> 507 — Особо крупный саботаж (Пожизненное)</label>
+  </div>
+
+  <div class="section">
+    <h2>🔧 Модификаторы</h2>
+    <p class="note">Можно выбрать только <strong>одно послабление</strong> и <strong>одно ухудшение</strong>. Рецидив не является отдельным модификатором.</p>
+
+    <h3>✅ Послабления</h3>
+    <label><input type="checkbox" name="modifier" value="Крайняя необходимость"> Крайняя необходимость (Снятие обвинений)</label>
+    <label><input type="checkbox" name="modifier" value="Явка с повинной"> Явка с повинной (–50% итогового срока)</label>
+    <label><input type="checkbox" name="modifier" value="Сделка со следствием"> Сделка со следствием (–50% итогового срока)</label>
+    <label><input type="checkbox" name="modifier" value="Отсутствие умысла"> Отсутствие умысла (Наказание пред. степени тяжести)</label>
+
+    <h3>❌ Ухудшения</h3>
+    <label><input type="checkbox" name="modifier" value="Помеха следствию"> Помеха следствию (+50% итогового срока)</label>
+    <label><input type="checkbox" name="modifier" value="Должностное преступление"> Должностное преступление (+50% итогового срока)</label>
+	<label>
+	  Количество рецидивов: 
+	  <input type="number" id="recidivismCount" min="0" value="0" style="width: 60px;">
+	  (+5 мин за каждый)
+	</label>
+  </div>
+
+  <button onclick="calculate()">Рассчитать срок</button>
+  <div id="result"></div>
+
+  <script>
+    // Базовые сроки по статьям
+    const basePenalties = {
+      '100':10,'101':10,'102':10,'103':10,'104':10,'105':10,'106':10,'107':10,'200':15,'201':15,'202':15,'203':15,'204':15,
+	  '205':15,'206':15,'207':15,'300':25,'301':25,'302':25,'303':25,'304':25,'305':25,'306':25,'307':25,'400':40,'401':40,
+	  '402':40,'403':40,'404':40,'405':40,'406':40,'407':40,'500':65,'501':65,'502':65,'503':65,'504':65,'505':65,'506':65,
+	  '507':65
+    };
+
+    // Модификаторы
+    const modifiers = {
+      'Крайняя необходимость': 0,
+      'Явка с повинной': 0.5,
+      'Сделка со следствием': 0.5,
+      'Отсутствие умысла': 1,
+      'Помеха следствию': 1.5,
+      'Должностное преступление': 1.5,
+    };
+
+    function calculate() {
+      const selectedArticles = Array.from(
+        document.querySelectorAll('input[name="article"]:checked')
+      ).map(cb => cb.value);
+
+      const selectedModifiers = Array.from(
+        document.querySelectorAll('input[name="modifier"]:checked')
+      ).map(cb => cb.value);
+
+      if (selectedArticles.length === 0) {
+        document.getElementById('result').innerHTML = 
+          "⚠️ Выберите хотя бы одну статью.";
+        return;
+      }
+
+      // Группировка по категориям (третья цифра кода)
+      const categories = {};
+      selectedArticles.forEach(code => {
+        const category = code[2];
+        if (!categories[category]) categories[category] = [];
+        categories[category].push(code);
+      });
+	  console.log("Категории: ", categories);
+
+      // Из каждой категории выбираем самую тяжкую статью
+      let mainArticles = [];
+      for (const cat in categories) {
+        const heaviest = categories[cat].reduce((a, b) => 
+          basePenalties[a] > basePenalties[b] ? a : b
+        );
+        mainArticles.push(heaviest);
+      }
+	  console.log("Самые тяжелые статьи в категориях: ", mainArticles);
+
+      // Определяем самую тяжкую из всех
+      const mainArticle = mainArticles.reduce((a, b) => 
+        basePenalties[a] > basePenalties[b] ? a : b
+	  );
+	  console.log("Самая тежелая статья: ", mainArticle);
+	// Проверяем, выбран ли модификатор "Отсутствие умысла"
+	const hasNoIntent = selectedModifiers.includes('Отсутствие умысла');
+
+	let effectiveMainPenalty = basePenalties[mainArticle];
+
+	if (hasNoIntent) {
+	  // Применяем понижение ко ВСЕМ основным статьям из категорий
+	  const loweredArticles = mainArticles.map(code => {
+		const category = parseInt(code[0]);
+		if (category <= 1) {
+		  // Статьи 1xx и ниже — снимаются (возвращаем null или флаг снятия)
+		  return null; // обозначаем, что статья аннулирована
+		} else {
+		  // Понижаем категорию на 1: 201 → 101, 305 → 205 и т.д.
+		  const lowerCategory = category - 1;
+		  const loweredCode = lowerCategory + code.slice(1);
+		  return loweredCode;
+		}
+	  }).filter(code => code !== null); // Убираем аннулированные статьи
+
+	  // Если после понижения не осталось ни одной статьи — наказание снимается
+	  if (loweredArticles.length === 0) {
+		effectiveMainPenalty = 0;
+	  } else {
+		// Находим самую тяжкую из пониженных статей
+		const newMainArticle = loweredArticles.reduce((a, b) => 
+		  basePenalties[a] > basePenalties[b] ? a : b
+		);
+		effectiveMainPenalty = basePenalties[newMainArticle];
+	  }
+	} else {
+	  // Без модификатора — обычный срок
+	  effectiveMainPenalty = basePenalties[mainArticle];
+	}
+
+      // Основной штраф — с учётом модификаторов (например, понижения по "отсутствию умысла")
+      const mainPenalty = effectiveMainPenalty;
+
+      // Максимальная добавка — 50% от ОСНОВНОГО штрафа (уже модифицированного)
+      const maxAdditional = mainPenalty * 0.5;
+      let additional = 0;
+
+      // Определяем, какие статьи использовать для добавки — оригинальные или пониженные
+      let articlesForAdditional = mainArticles.filter(code => code !== mainArticle);
+
+      // Если применён "Отсутствие умысла", нужно использовать ПОНИЖЕННЫЕ версии статей
+      if (hasNoIntent) {
+        articlesForAdditional = articlesForAdditional
+          .map(code => {
+            const category = parseInt(code[0]);
+            if (category <= 1) return null; // снимается
+            return (category - 1) + code.slice(1); // понижаем
+          })
+          .filter(code => code !== null && basePenalties[code] !== undefined); // оставляем только валидные
+      }
+
+      // Рассчитываем добавку
+      articlesForAdditional.forEach(code => {
+        const penalty = basePenalties[code];
+        if (additional + penalty <= maxAdditional) {
+          additional += penalty;
+        } else if (additional < maxAdditional) {
+          additional = maxAdditional; // Доводим до лимита
+        }
+      });
+
+      let total = mainPenalty + additional;
+
+      // Применяем модификаторы: один положительный, один отрицательный
+      let posMod = 1, negMod = 1;
+      selectedModifiers.forEach(mod => {
+        const value = modifiers[mod];
+		// Послабления — это значения МЕНЬШЕ или РАВНЫ 1 (но не 1.5)
+		  if (value <= 1) {
+			posMod = value; // перезаписываем, т.к. в группе только один выбор
+		  }
+		  
+		  // Ухудшения — это значения БОЛЬШЕ 1
+		  if (value > 1) {
+			negMod = value; // тоже только один может быть выбран
+		  }
+		});
+	  console.log("Срок и модификаторы: ", total, posMod, negMod);
+      total *= posMod * negMod;
+
+	// Считываем количество рецидивов
+	const recidivismInput = document.getElementById('recidivismCount');
+	const recidivismCount = parseInt(recidivismInput.value) || 0; // на случай, если не число
+
+	// Добавляем 5 минут за каждый рецидив
+	total += recidivismCount * 5;
+
+	console.log("С учётом рецидивов: ", total);
+
+      // Проверка на пожизненное
+      if (total >= 65) {
+        document.getElementById('result').innerHTML = 
+          "📌 <b>Пожизненное заключение</b>";
+      } else if (total <= 0) {
+        document.getElementById('result').innerHTML = 
+          "✅ <b>Заключение отменено(обвинения сняты согласно модификаторам)</b>";
+      } else if (total <= 10) {
+        document.getElementById('result').innerHTML = 
+          `⏱️ <b>Срок: ${total} минут или предупреждение</b>`;
+	  } else if (total >=40 && total < 65) {
+        document.getElementById('result').innerHTML = 
+          `⏱️ <b>Срок: ${total} минут с отбыванием в пермабриге</b>`;
+	  } else {
+        document.getElementById('result').innerHTML = 
+          `⏱️ <b>Срок: ${total} минут</b>`;
+      }
+    }
+  </script>
+</body>
+</html>
