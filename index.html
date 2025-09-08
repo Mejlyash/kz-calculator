@@ -181,15 +181,27 @@
       const selectedModifiers = Array.from(
         document.querySelectorAll('input[name="modifier"]:checked')
       ).map(cb => cb.value);
+	  
 
 	// Проверка на наличие статей 5xx (пожизненных)
 	const hasLifeSentenceArticles = selectedArticles.some(code => code.startsWith('5'));
-	
-	// Если есть статьи 5xx и НЕ выбрано "Отсутствие умысла" → сразу пожизненное
-	if (hasLifeSentenceArticles && !selectedModifiers.includes('Отсутствие умысла')) {
-	  document.getElementById('result').innerHTML = "📌 <b>Пожизненное заключение</b>";
-	  return; // Прекращаем дальнейший расчёт
+
+	// Проверка на наличие модификаторов, отменяющих пожизненное
+	const hasNoIntent = selectedModifiers.includes('Отсутствие умысла');
+	const hasExtremeNecessity = selectedModifiers.includes('Крайняя необходимость');
+
+	// Если выбрано "Крайняя необходимость" — сразу отмена наказания, независимо от статей
+	if (hasExtremeNecessity) {
+	  document.getElementById('result').innerHTML = "✅ <b>Заключение отменено (обвинения сняты: Крайняя необходимость)</b>";
+	  return;
 	}
+
+// Если есть статьи 5xx и НЕТ "Отсутствия умысла" → пожизненное (т.к. "Крайняя необходимость" уже исключена выше)
+if (hasLifeSentenceArticles && !hasNoIntent) {
+  document.getElementById('result').innerHTML = "📌 <b>Пожизненное заключение</b>";
+  return; // Прекращаем дальнейший расчёт
+}
+
 
       if (selectedArticles.length === 0) {
         document.getElementById('result').innerHTML = 
@@ -221,8 +233,6 @@
         basePenalties[a] > basePenalties[b] ? a : b
 	  );
 	  console.log("Самая тежелая статья: ", mainArticle);
-	// Проверяем, выбран ли модификатор "Отсутствие умысла"
-	const hasNoIntent = selectedModifiers.includes('Отсутствие умысла');
 
 	let effectiveMainPenalty = basePenalties[mainArticle];
 
@@ -335,5 +345,4 @@
     }
   </script>
 </body>
-
 </html>
